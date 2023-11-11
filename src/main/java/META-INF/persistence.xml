@@ -5,6 +5,10 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 	<persistence-unit name="jpaPw1">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>model.pessoas.Autor</class>
+        <class>model.locais.Instituicao</class>
+        <class>model.submissoes.Submissao</class>
+        <class>model.submissoes.Artigo</class>
+        <class>model.contatos.Telefone</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpa"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
