@@ -1,14 +1,20 @@
 package model.submissoes;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.*;
-import model.submissoes.Submissao;
+
+import model.pessoas.Autor;
+import util.Situacao;
 
 /**
  * Entity implementation class for Entity: Artigo
  *
  */
 @Entity
+@PrimaryKeyJoinColumn(name = "idArtigo", referencedColumnName = "idSubmissao")
 public class Artigo extends Submissao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,11 +23,15 @@ public class Artigo extends Submissao implements Serializable {
 	
 	
 	public Artigo() { super(); }
-	public Artigo(String abstrato, String resumo) {
-		super();
+	
+	public Artigo(Long idSubmissao, String titulo, Date data, Set<Autor> autores, Situacao situacao, String abstrato,
+			String resumo) {
+		super(idSubmissao, titulo, data, autores, situacao);
 		this.abstrato = abstrato;
 		this.resumo = resumo;
 	}
+
+
 	public String getAbstrato() {
 		return abstrato;
 	}

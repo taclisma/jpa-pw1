@@ -1,7 +1,7 @@
 package model.locais;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -19,14 +19,18 @@ public class Instituicao implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idInstituicao;
 	private String nome;
 	
-	private String endereco; 
-    private List<Autor> autores;
+	private String endereco;
+	
+	@OneToMany (cascade = CascadeType.PERSIST) // TODO talvez cascaded tbm
+	@JoinColumn(name = "idInstituicao")
+    private Set<Autor> autores;
 	
 	public Instituicao() { super(); }
 
-	public Instituicao(String nome, String endereco, List<Autor> autores) {
+	public Instituicao(String nome, String endereco, Set<Autor> autores) {
 		super();
 		this.nome = nome;
 		this.endereco = endereco;
@@ -49,11 +53,11 @@ public class Instituicao implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public List<Autor> getAutores() {
+	public Set<Autor> getAutores() {
 		return autores;
 	}
 
-	public void setAutores(List<Autor> autores) {
+	public void setAutores(Set<Autor> autores) {
 		this.autores = autores;
 	}
 	
