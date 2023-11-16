@@ -52,7 +52,6 @@ public class Submissao implements Serializable {
 		this.setSituacao(situacao);
 	}
 
-
 	public String getTitulo() {
 		return titulo;
 	}
@@ -76,6 +75,12 @@ public class Submissao implements Serializable {
 	}
 	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
+	}
+	public Long getIdSubmissao() {
+		return idSubmissao;
+	}
+	public void setIdSubmissao(Long idSubmissao) {
+		this.idSubmissao = idSubmissao;
 	}
 	public void addAutor(Autor autor) {
 		this.autores.add(autor);

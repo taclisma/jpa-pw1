@@ -3,15 +3,16 @@ package dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
-import model.pessoas.Autor;
+import model.submissoes.Artigo;
 import util.JPAUtil;
 
-public class AutorDAO implements GenericDAO<Autor>{
+public class ArtigoDAO implements GenericDAO<Artigo> {
 	private EntityManager em;
-	
+
 	@Override
-	public boolean insert(Autor obj) {
+	public boolean insert(Artigo obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
@@ -29,7 +30,7 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public boolean update(Autor obj) {
+	public boolean update(Artigo obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
@@ -41,17 +42,16 @@ public class AutorDAO implements GenericDAO<Autor>{
 				em.getTransaction().rollback();
 			}
 		}
-		
 		return false;
 	}
 
 	@Override
-	public boolean delete(Autor obj) {
+	public boolean delete(Artigo obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
-			Autor autor = em.find(Autor.class, obj.getIdAutor());
-			em.remove(autor);
+			Artigo submissao = em.find(Artigo.class, obj.getIdSubmissao());
+			em.remove(submissao);
 			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -63,11 +63,11 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public Autor findByID(int id) {
+	public Artigo findByID(int id) {
 		try {
 			em = JPAUtil.getEntityManager();
-			Autor autor = em.find(Autor.class, id);
-			return autor;
+			Artigo submissao = em.find(Artigo.class, id);
+			return submissao;
 			
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
@@ -78,9 +78,17 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public List<Autor> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Artigo> listAll() {
+		try {
+			em = JPAUtil.getEntityManager();
+			TypedQuery<Artigo> query = em.createQuery("SELECT obj FROM Artigo obj",
+				Artigo.class);
+			List<Artigo> artigos = query.getResultList();
+			return artigos;
+		} catch (RuntimeException e) {
+			return null;
+		}
 	}
-	
+
+
 }
