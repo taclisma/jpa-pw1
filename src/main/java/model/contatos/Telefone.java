@@ -1,6 +1,8 @@
 package model.contatos;
 
 import java.io.Serializable;
+import java.util.Objects;
+
 import javax.persistence.*;
 
 /**
@@ -46,7 +48,23 @@ public class Telefone implements Serializable {
 	public String toString() {
 		return "Telefone [ddd=" + ddd + ", numero=" + numero + "]";
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(ddd, idTelefone, numero);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Telefone other = (Telefone) obj;
+		return ddd == other.ddd && Objects.equals(idTelefone, other.idTelefone) && Objects.equals(numero, other.numero);
+	}
 	
 	
    

@@ -6,14 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import model.pessoas.Autor;
+import model.submissoes.Curso;
 import util.JPAUtil;
 
-public class AutorDAO implements GenericDAO<Autor>{
+public class CursoDAO implements GenericDAO<Curso> {
 	private EntityManager em;
-	
+
 	@Override
-	public boolean insert(Autor obj) {
+	public boolean insert(Curso obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
@@ -31,7 +31,7 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public boolean update(Autor obj) {
+	public boolean update(Curso obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
@@ -43,17 +43,16 @@ public class AutorDAO implements GenericDAO<Autor>{
 				em.getTransaction().rollback();
 			}
 		}
-		
 		return false;
 	}
 
 	@Override
-	public boolean delete(Autor obj) {
+	public boolean delete(Curso obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
-			Autor autor = em.find(Autor.class, obj.getIdAutor());
-			em.remove(autor);
+			Curso curso = em.find(Curso.class, obj.getIdSubmissao());
+			em.remove(curso);
 			em.getTransaction().commit();
 			return true;
 		} catch (RuntimeException e) {
@@ -65,11 +64,11 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public Autor findByID(int id) {
+	public Curso findByID(int id) {
 		try {
 			em = JPAUtil.getEntityManager();
-			Autor autor = em.find(Autor.class, id);
-			return autor;
+			Curso curso = em.find(Curso.class, id);
+			return curso;
 		} catch (NoResultException e) {
 			System.out.println("Nenhum resultado encontrado para id: " + id);
 		} catch (RuntimeException e) {
@@ -80,14 +79,15 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public List<Autor> listAll() {
+	public List<Curso> listAll() {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Autor> query = em.createQuery("SELECT obj FROM Autor obj", Autor.class);
-			List<Autor> autores = query.getResultList();
-			return autores;
+			TypedQuery<Curso> query = em.createQuery("SELECT obj FROM Artigo obj",
+				Curso.class);
+			List<Curso> curso= query.getResultList();
+			return curso;
 		} catch (NoResultException e) {
-			System.out.println("Nenhum Autor encontrado");
+			System.out.println("Nenhum curso encontrado");
 		} catch (RuntimeException e) {
 			System.out.println("Runtime exception: " + e.getMessage());
 			e.printStackTrace();
@@ -96,18 +96,17 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public List<Autor> findByAttribute(String snome) {
-		// TODO funciona ?
+	public List<Curso> findByAttribute(String stitulo) {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Autor> query = em.createQuery("SELECT obj FROM Artigo obj "
+			TypedQuery<Curso> query = em.createQuery("SELECT obj FROM Artigo obj "
 					+ "WHERE obj.titulo LIKE :stitulo",
-					Autor.class);
-			query.setParameter("stitulo", snome).setMaxResults(10);
-			List<Autor> autores = query.getResultList();
-			return autores;
+					Curso.class);
+			query.setParameter("stitulo", stitulo).setMaxResults(10);
+			List<Curso> cursos = query.getResultList();
+			return cursos;
 		} catch (NoResultException e) {
-			System.out.println("Nenhum autor encontrado com esse nome: " + snome);
+			System.out.println("Nenhum curso encontrado com esse titulo: " + stitulo);
 		} catch (RuntimeException e) {
 			System.out.println("Runtime exception: " + e.getMessage());
 			e.printStackTrace();

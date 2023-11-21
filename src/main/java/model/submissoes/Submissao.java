@@ -2,6 +2,7 @@ package model.submissoes;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -9,8 +10,9 @@ import javax.persistence.*;
 import model.pessoas.Autor;
 import util.Situacao;
 
+// como é um projeto pequeno e a classe Submissao não é abstrata, vou usar a solução que acho mais "correta"
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // como é um projeto pequeno e a classe Submissao não é abstrata, vou usar a solução que acho mais "correta"
+@Inheritance(strategy = InheritanceType.JOINED) 
 public class Submissao implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -20,11 +22,9 @@ public class Submissao implements Serializable {
 	private Long idSubmissao;
 	private String titulo;
 	
-	/*
+	/* TODO 8.
 	 *  Escolhi a submissão para ser a entidade dominante, pelos seguintes motivos:
 	 * 		- O nome do sistema é um sistema de SUBMISSÃO, portanto essa parece ser a parte mais importante
-	 *		- 
-	 * 
 	 */
 	
 	@ManyToMany(cascade = CascadeType.PERSIST) // TODO checar se ok so persist
@@ -33,9 +33,10 @@ public class Submissao implements Serializable {
 			    inverseJoinColumns = { @JoinColumn(name= "idAutor") } )
 	private Set<Autor> autores;
 	
+	//TODO 5.
 	@Temporal(TemporalType.DATE) // salva apenas o dia
 	private Date data;
-	
+	//TODO 6.
 	@Enumerated(EnumType.STRING) // salva a STRING do enum
 	private Situacao situacao;
 	
@@ -86,7 +87,20 @@ public class Submissao implements Serializable {
 		this.autores.add(autor);
 	}
 	
-	
-	
-	
+	@Override
+	public int hashCode() {
+		return Objects.hash(idSubmissao, titulo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Submissao other = (Submissao) obj;
+		return Objects.equals(idSubmissao, other.idSubmissao) && Objects.equals(titulo, other.titulo);
+	}
 }
