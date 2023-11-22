@@ -17,7 +17,7 @@ import model.submissoes.Submissao;
  */
 @Entity
 
-public class Autor implements Serializable {
+public class Autor implements Serializable, Comparable<Autor> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -89,7 +89,20 @@ public class Autor implements Serializable {
 	public void setIdAutor(Long idAutor) {
 		this.idAutor = idAutor;
 	}
+	
+	
 
+	@Override
+	public String toString() {
+		return "Autor ID: " + idAutor + " \n\t nome: " + nome + " \n\t telefone: " + telefone + " \n\t instituicao: "
+				+ instituicao + " \n\t emails: " + emails + " \n\t submissoes: " + submissoes;
+	}
+	
+	@Override
+	public int compareTo(Autor o) {
+		return getNome().compareToIgnoreCase(o.getNome());
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(idAutor, nome);

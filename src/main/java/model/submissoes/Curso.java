@@ -13,6 +13,9 @@ import util.Situacao;
  * Entity implementation class for Entity: Curso
  *
  */
+/**
+ * 
+ */
 @Entity
 @PrimaryKeyJoinColumn(name = "idCurso", referencedColumnName = "idSubmissao")
 public class Curso extends Submissao implements Serializable {
@@ -62,6 +65,14 @@ public class Curso extends Submissao implements Serializable {
 	}
 	public void setDuracao(double duracao) {
 		this.duracao = duracao;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return super.toString() + "\n\t Curso justificativa: \n\t" + justificativa + " \n\t material: " + material + " \n\t objetivo: " + objetivo
+				+ " \n\t duracao: " + duracao;
 	}
 	
 	

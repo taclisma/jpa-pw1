@@ -13,7 +13,7 @@ import util.Situacao;
 // como é um projeto pequeno e a classe Submissao não é abstrata, vou usar a solução que acho mais "correta"
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) 
-public class Submissao implements Serializable {
+public class Submissao implements Serializable, Comparable<Submissao> {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -88,6 +88,12 @@ public class Submissao implements Serializable {
 	}
 	
 	@Override
+	public String toString() {
+		return "Submissao ID: " + idSubmissao + " \n\t titulo: " + titulo + " \n\t autores: " + autores
+				+ " \n\t data: " + data + " \n\t situacao: " + situacao;
+	}
+
+	@Override
 	public int hashCode() {
 		return Objects.hash(idSubmissao, titulo);
 	}
@@ -102,5 +108,10 @@ public class Submissao implements Serializable {
 			return false;
 		Submissao other = (Submissao) obj;
 		return Objects.equals(idSubmissao, other.idSubmissao) && Objects.equals(titulo, other.titulo);
+	}
+
+	@Override
+	public int compareTo(Submissao o) {
+		return getTitulo().compareToIgnoreCase(o.getTitulo());
 	}
 }

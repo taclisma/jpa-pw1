@@ -31,7 +31,6 @@ public class Artigo extends Submissao implements Serializable {
 		this.resumo = resumo;
 	}
 
-
 	public String getAbstrato() {
 		return abstrato;
 	}
@@ -43,6 +42,11 @@ public class Artigo extends Submissao implements Serializable {
 	}
 	public void setResumo(String resumo) {
 		this.resumo = resumo;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "\n\t Artigo abstrato: \n\t" + abstrato + " \n\t resumo: \n\t" + resumo;
 	}
 	
 	

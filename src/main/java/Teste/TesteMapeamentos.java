@@ -73,7 +73,7 @@ public class TesteMapeamentos {
 		ad.insert(autor1);
 		ad.insert(autor2);
 		ad.insert(autor3);
-	
+		
 	
 	}
 

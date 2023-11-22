@@ -61,6 +61,13 @@ public class Instituicao implements Serializable {
 	public void setAutores(Set<Autor> autores) {
 		this.autores = autores;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Instituicao ID: " + idInstituicao + " \n\t nome: " + nome + " \n\t endereco: " + endereco
+				+ " \n\t autores: " + autores;
+	}
 
 	@Override
 	public int hashCode() {
