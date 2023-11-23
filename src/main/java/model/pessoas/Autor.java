@@ -94,8 +94,12 @@ public class Autor implements Serializable, Comparable<Autor> {
 
 	@Override
 	public String toString() {
-		return "Autor ID: " + idAutor + " \n\t nome: " + nome + " \n\t telefone: " + telefone + " \n\t instituicao: "
-				+ instituicao + " \n\t emails: " + emails + " \n\t submissoes: " + submissoes;
+		String aux = "";
+		for (Submissao sub : submissoes) {
+			aux += "" + sub.getTitulo() + "(" + sub.getData() + "), ";
+		}
+		return "\n\tAutor ID: " + idAutor + " \n\t Nome: " + nome + telefone.toString() + " \n\t Instituicao: "
+				+ instituicao.getNome() + " \n\t Emails: " + emails + (aux.isBlank() ? "\n\t Sem submissoes" : "\n\t Submissoes: \n\t\t " + aux + ".");
 	}
 	
 	@Override
@@ -118,6 +122,12 @@ public class Autor implements Serializable, Comparable<Autor> {
 			return false;
 		Autor other = (Autor) obj;
 		return Objects.equals(idAutor, other.idAutor) && Objects.equals(nome, other.nome);
+	}
+
+	public boolean addSubmissoes(Submissao sub) {
+		
+		return this.submissoes.add(sub);
+		
 	};
 	
    

@@ -42,8 +42,7 @@ public class AutorDAO implements GenericDAO<Autor>{
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
-		}
-		
+		}		
 		return false;
 	}
 
@@ -65,7 +64,7 @@ public class AutorDAO implements GenericDAO<Autor>{
 	}
 
 	@Override
-	public Autor findByID(int id) {
+	public Autor findByID(Long id) {
 		try {
 			em = JPAUtil.getEntityManager();
 			Autor autor = em.find(Autor.class, id);
@@ -100,10 +99,10 @@ public class AutorDAO implements GenericDAO<Autor>{
 		// TODO funciona ?
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Autor> query = em.createQuery("SELECT obj FROM Artigo obj "
-					+ "WHERE obj.titulo LIKE :stitulo",
+			TypedQuery<Autor> query = em.createQuery("SELECT obj FROM Autor obj "
+					+ "WHERE obj.nome LIKE :snome",
 					Autor.class);
-			query.setParameter("stitulo", snome).setMaxResults(10);
+			query.setParameter("snome", snome).setMaxResults(10);
 			List<Autor> autores = query.getResultList();
 			return autores;
 		} catch (NoResultException e) {

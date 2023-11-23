@@ -27,7 +27,7 @@ public class Submissao implements Serializable, Comparable<Submissao> {
 	 * 		- O nome do sistema é um sistema de SUBMISSÃO, portanto essa parece ser a parte mais importante
 	 */
 	
-	@ManyToMany(cascade = CascadeType.PERSIST) // TODO checar se ok so persist
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER) // TODO checar se ok so persist
 	@JoinTable( name = "autor_de_submissao", 
 			    joinColumns = { @JoinColumn(name= "idSubmissao") },
 			    inverseJoinColumns = { @JoinColumn(name= "idAutor") } )
@@ -44,9 +44,8 @@ public class Submissao implements Serializable, Comparable<Submissao> {
 	public Submissao() {};
 
 	
-	public Submissao(Long idSubmissao, String titulo, Date data, Set<Autor> autores, Situacao situacao) {
+	public Submissao(String titulo, Date data, Set<Autor> autores, Situacao situacao) {
 		super();
-		this.idSubmissao = idSubmissao;
 		this.titulo = titulo;
 		this.data = data;
 		this.autores = autores;

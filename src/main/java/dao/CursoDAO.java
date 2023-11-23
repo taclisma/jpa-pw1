@@ -64,7 +64,7 @@ public class CursoDAO implements GenericDAO<Curso> {
 	}
 
 	@Override
-	public Curso findByID(int id) {
+	public Curso findByID(Long id) {
 		try {
 			em = JPAUtil.getEntityManager();
 			Curso curso = em.find(Curso.class, id);
@@ -82,7 +82,7 @@ public class CursoDAO implements GenericDAO<Curso> {
 	public List<Curso> listAll() {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Curso> query = em.createQuery("SELECT obj FROM Artigo obj",
+			TypedQuery<Curso> query = em.createQuery("SELECT obj FROM Curso obj",
 				Curso.class);
 			List<Curso> curso= query.getResultList();
 			return curso;
@@ -99,7 +99,7 @@ public class CursoDAO implements GenericDAO<Curso> {
 	public List<Curso> findByAttribute(String stitulo) {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Curso> query = em.createQuery("SELECT obj FROM Artigo obj "
+			TypedQuery<Curso> query = em.createQuery("SELECT obj FROM Curso obj "
 					+ "WHERE obj.titulo LIKE :stitulo",
 					Curso.class);
 			query.setParameter("stitulo", stitulo).setMaxResults(10);

@@ -46,7 +46,7 @@ public class Telefone implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Telefone: (" + ddd + ") " + numero;
+		return "\n\t Telefone: (" + ddd + ") " + numero;
 	}
 
 	@Override

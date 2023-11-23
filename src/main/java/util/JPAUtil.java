@@ -8,7 +8,7 @@ public class JPAUtil {
     
     public static EntityManager getEntityManager() {
         if(emf == null)
-            emf = Persistence.createEntityManagerFactory("jpaPw1");
+            emf = Persistence.createEntityManagerFactory("trabjpa");
         return emf.createEntityManager();
     }
     public static void close(){

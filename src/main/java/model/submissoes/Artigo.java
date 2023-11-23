@@ -24,9 +24,9 @@ public class Artigo extends Submissao implements Serializable {
 	
 	public Artigo() { super(); }
 	
-	public Artigo(Long idSubmissao, String titulo, Date data, Set<Autor> autores, Situacao situacao, String abstrato,
+	public Artigo(String titulo, Date data, Set<Autor> autores, Situacao situacao, String abstrato,
 			String resumo) {
-		super(idSubmissao, titulo, data, autores, situacao);
+		super(titulo, data, autores, situacao);
 		this.abstrato = abstrato;
 		this.resumo = resumo;
 	}

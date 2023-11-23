@@ -25,7 +25,7 @@ public class Instituicao implements Serializable {
 	
 	private String endereco;
 	
-	@OneToMany (cascade = CascadeType.PERSIST) // TODO talvez cascaded tbm
+	@OneToMany (mappedBy = "instituicao", cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // TODO talvez cascaded tbm
 	@JoinColumn(name = "idInstituicao")
     private Set<Autor> autores;
 	
@@ -62,7 +62,14 @@ public class Instituicao implements Serializable {
 		this.autores = autores;
 	}
 	
-	
+	public Long getIdInstituicao() {
+		return idInstituicao;
+	}
+
+	public void setIdInstituicao(Long idInstituicao) {
+		this.idInstituicao = idInstituicao;
+	}
+
 	@Override
 	public String toString() {
 		return "Instituicao ID: " + idInstituicao + " \n\t nome: " + nome + " \n\t endereco: " + endereco

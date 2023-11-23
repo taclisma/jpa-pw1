@@ -6,14 +6,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import model.submissoes.Artigo;
+import model.locais.Instituicao;
 import util.JPAUtil;
 
-public class ArtigoDAO implements GenericDAO<Artigo> {
+public class InstituicaoDAO implements GenericDAO<Instituicao> {
+
 	private EntityManager em;
 
 	@Override
-	public boolean insert(Artigo obj) {
+	public boolean insert(Instituicao obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
@@ -26,12 +27,12 @@ public class ArtigoDAO implements GenericDAO<Artigo> {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
-		}
+		}		
 		return false;
 	}
 
 	@Override
-	public boolean update(Artigo obj) {
+	public boolean update(Instituicao obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
@@ -42,17 +43,17 @@ public class ArtigoDAO implements GenericDAO<Artigo> {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
-		}
+		}		
 		return false;
 	}
 
 	@Override
-	public boolean delete(Artigo obj) {
+	public boolean delete(Instituicao obj) {
 		try {
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
-			Artigo submissao = em.find(Artigo.class, obj.getIdSubmissao());
-			em.remove(submissao);
+			Instituicao instituicao = em.find(Instituicao.class, obj.getIdInstituicao());
+			em.remove(instituicao);
 			em.getTransaction().commit();
 			return true;
 		} catch (RuntimeException e) {
@@ -64,11 +65,11 @@ public class ArtigoDAO implements GenericDAO<Artigo> {
 	}
 
 	@Override
-	public Artigo findByID(Long id) {
+	public Instituicao findByID(Long id) {
 		try {
 			em = JPAUtil.getEntityManager();
-			Artigo submissao = em.find(Artigo.class, id);
-			return submissao;
+			Instituicao instituicao = em.find(Instituicao.class, id);
+			return instituicao;
 		} catch (NoResultException e) {
 			System.out.println("Nenhum resultado encontrado para id: " + id);
 		} catch (RuntimeException e) {
@@ -79,15 +80,14 @@ public class ArtigoDAO implements GenericDAO<Artigo> {
 	}
 
 	@Override
-	public List<Artigo> listAll() {
+	public List<Instituicao> listAll() {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Artigo> query = em.createQuery("SELECT obj FROM Artigo obj",
-				Artigo.class);
-			List<Artigo> artigos = query.getResultList();
-			return artigos;
+			TypedQuery<Instituicao> query = em.createQuery("SELECT obj FROM Autor obj", Instituicao.class);
+			List<Instituicao> inst = query.getResultList();
+			return inst;
 		} catch (NoResultException e) {
-			System.out.println("Nenhum artigo encontrado");
+			System.out.println("Nenhuma instituiçao encontrada");
 		} catch (RuntimeException e) {
 			System.out.println("Runtime exception: " + e.getMessage());
 			e.printStackTrace();
@@ -96,18 +96,18 @@ public class ArtigoDAO implements GenericDAO<Artigo> {
 	}
 
 	@Override
-	public List<Artigo> findByAttribute(String stitulo) {
-		// TODO sera q funciona?
+	public List<Instituicao> findByAttribute(String snomeInst) {
+		// TODO 
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<Artigo> query = em.createQuery("SELECT obj FROM Artigo obj "
-					+ "WHERE obj.titulo LIKE :stitulo",
-					Artigo.class);
-			query.setParameter("stitulo", stitulo).setMaxResults(10);
-			List<Artigo> artigos = query.getResultList();
-			return artigos;
+			TypedQuery<Instituicao> query = em.createQuery("SELECT obj FROM Artigo obj "
+					+ "WHERE obj.nome LIKE :nomeInst",
+					Instituicao.class);
+			query.setParameter("nomeInst", snomeInst).setMaxResults(10);
+			List<Instituicao> inst = query.getResultList();
+			return inst;
 		} catch (NoResultException e) {
-			System.out.println("Nenhum artigo encontrado com esse titulo: " + stitulo);
+			System.out.println("Nenhuma instituição encontrada com esse nome: " + snomeInst);
 		} catch (RuntimeException e) {
 			System.out.println("Runtime exception: " + e.getMessage());
 			e.printStackTrace();

@@ -32,9 +32,9 @@ public class Curso extends Submissao implements Serializable {
 	
 	
 
-	public Curso(Long idSubmissao, String titulo, Date data, Set<Autor> autores, Situacao situacao,
+	public Curso(String titulo, Date data, Set<Autor> autores, Situacao situacao,
 			String justificativa, String material, String objetivo, double duracao) {
-		super(idSubmissao, titulo, data, autores, situacao);
+		super(titulo, data, autores, situacao);
 		this.justificativa = justificativa;
 		this.material = material;
 		this.objetivo = objetivo;
